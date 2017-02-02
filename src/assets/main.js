@@ -24,36 +24,36 @@ function guess() {
     }else{
         setMessage("Incorrect, try again.");
     }
+    //add functionality to guess function here
+}
 
-    function getResults(){
-        let numberRight = 0;
-        let resultP = document.createElement("p");
-        resultP.className += "col-md-6";
+function getResults(){
+    let numberRight = 0;
+    let resultP = document.createElement("p");
+    resultP.className += "col-md-6";
 
-        for(let x = 0; x < answer.value.length; x++){
-            let resultSpan = document.createElement("span");
-            if(input.value.substring(x, x+1) === answer.value.substring(x, x+1)){
-                resultSpan.className += "glyphicon glyphicon-ok";
-                resultP.appendChild(resultSpan);
-                numberRight++;
-            }else if(answer.value.indexOf(input.value.substring(x, x+1)) == "-1"){
-                resultSpan.className += "glyphicon glyphicon-remove";
-                resultP.appendChild(resultSpan);
-            }else{
-                resultSpan.className += "glyphicon glyphicon-transfer";
-                resultP.appendChild(resultSpan);
-            }
-        }
-
-        createResultRow(input.value, resultP);
-
-        if(numberRight === 4){
-            return true;
+    for(let x = 0; x < answer.value.length; x++){
+        let resultSpan = document.createElement("span");
+        if(input.value.substring(x, x+1) === answer.value.substring(x, x+1)){
+            resultSpan.className += "glyphicon glyphicon-ok";
+            resultP.appendChild(resultSpan);
+            numberRight++;
+        }else if(answer.value.indexOf(input.value.substring(x, x+1)) == "-1"){
+            resultSpan.className += "glyphicon glyphicon-remove";
+            resultP.appendChild(resultSpan);
         }else{
-            return false;
+            resultSpan.className += "glyphicon glyphicon-transfer";
+            resultP.appendChild(resultSpan);
         }
     }
-    //add functionality to guess function here
+
+    createResultRow(input.value, resultP);
+
+    if(numberRight === 4){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 function setHiddenFields(){
