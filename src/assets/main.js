@@ -11,13 +11,13 @@ function guess() {
         setMessage("Guesses must be exactly 4 characters long.");
         return;
     }else{
-        attempt.value = attempt.value++;
+        attempt.value = parseInt(attempt.value) + 1;
     }
     if(getResults(input)){
         setMessage("You Win! :)");
         showAnswer(true);
         showReplay();
-    }else if(attempt >= 10){
+    }else if(attempt.value >= 10){
         setMessage("You Lose! :(");
         showAnswer(false);
         showReplay();
@@ -91,7 +91,7 @@ function createResultRow(guess, result){
 
 function showAnswer(win){
     let code = document.getElementById("code");
-    code.innerHTML = answer;
+    code.innerHTML = answer.value;
     if(win){
         code.className += " success";
     }else{
