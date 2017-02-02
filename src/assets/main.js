@@ -10,7 +10,7 @@ function guess() {
     if(!validateInput(input.value)){
         return;
     }else{
-        attempt++;
+        attempt.value = attempt.value++;
     }
     if(getResults(input)){
         setMessage("You Win! :)");
@@ -27,11 +27,11 @@ function guess() {
 }
 
 function setHiddenFields(){
-    answer = Math.floor(Math.random() * (9999 - 1)) + 1
-    let answerStr = answer + "";
+    answer.value = Math.floor(Math.random() * (9999 - 1)) + 1
+    let answerStr = answer.value + "";
     let pad = "0000";
-    answer = pad.substring(0, pad.length - answerStr.length) + answerStr;
-    attempt = 0;
+    answer.value = pad.substring(0, pad.length - answerStr.length) + answerStr;
+    attempt.value = 0;
 }
 
 function setMessage(messageValue){
@@ -52,13 +52,13 @@ function getResults(input){
     let resultP = document.createElement("p");
     resultP.className += "col-md-6";
 
-    for(let x = 0; x < answer.length; x++){
+    for(let x = 0; x < answer.value.length; x++){
         let resultSpan = document.createElement("span");
-        if(input.value.substring(x, x+1) === answer.substring(x, x+1)){
+        if(input.value.substring(x, x+1) === answer.value.substring(x, x+1)){
             resultSpan.className += "glyphicon glyphicon-ok";
             resultP.appendChild(resultSpan);
             numberRight++;
-        }else if(answer.indexOf(input.value.substring(x, x+1)) == "-1"){
+        }else if(answer.value.indexOf(input.value.substring(x, x+1)) == "-1"){
             resultSpan.className += "glyphicon glyphicon-remove";
             resultP.appendChild(resultSpan);
         }else{
