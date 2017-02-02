@@ -13,7 +13,7 @@ function guess() {
     }else{
         attempt.value = parseInt(attempt.value) + 1;
     }
-    if(getResults(input)){
+    if(getResults()){
         setMessage("You Win! :)");
         showAnswer(true);
         showReplay();
@@ -23,6 +23,35 @@ function guess() {
         showReplay();
     }else{
         setMessage("Incorrect, try again.");
+    }
+
+    function getResults(){
+        let numberRight = 0;
+        let resultP = document.createElement("p");
+        resultP.className += "col-md-6";
+
+        for(let x = 0; x < answer.value.length; x++){
+            let resultSpan = document.createElement("span");
+            if(input.value.substring(x, x+1) === answer.value.substring(x, x+1)){
+                resultSpan.className += "glyphicon glyphicon-ok";
+                resultP.appendChild(resultSpan);
+                numberRight++;
+            }else if(answer.value.indexOf(input.value.substring(x, x+1)) == "-1"){
+                resultSpan.className += "glyphicon glyphicon-remove";
+                resultP.appendChild(resultSpan);
+            }else{
+                resultSpan.className += "glyphicon glyphicon-transfer";
+                resultP.appendChild(resultSpan);
+            }
+        }
+
+        createResultRow(input.value, resultP);
+
+        if(numberRight === 4){
+            return true;
+        }else{
+            return false;
+        }
     }
     //add functionality to guess function here
 }
@@ -47,34 +76,7 @@ function validateInput(guess){
     }
 }
 
-function getResults(input){
-    let numberRight = 0;
-    let resultP = document.createElement("p");
-    resultP.className += "col-md-6";
 
-    for(let x = 0; x < answer.value.length; x++){
-        let resultSpan = document.createElement("span");
-        if(input.value.substring(x, x+1) === answer.value.substring(x, x+1)){
-            resultSpan.className += "glyphicon glyphicon-ok";
-            resultP.appendChild(resultSpan);
-            numberRight++;
-        }else if(answer.value.indexOf(input.value.substring(x, x+1)) == "-1"){
-            resultSpan.className += "glyphicon glyphicon-remove";
-            resultP.appendChild(resultSpan);
-        }else{
-            resultSpan.className += "glyphicon glyphicon-transfer";
-            resultP.appendChild(resultSpan);
-        }
-    }
-
-    createResultRow(input.value, resultP);
-
-    if(numberRight === 4){
-        return true;
-    }else{
-        return false;
-    }
-}
 
 function createResultRow(guess, result){
     let div = document.createElement("div");
